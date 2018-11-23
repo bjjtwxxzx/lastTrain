@@ -7,7 +7,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class testMain {
-
+    /**
+     * outputTestResult 输出测试用时汇总结果
+     * @param testName 测试名称
+     * @param timeConsume 不同耗时用例数量
+     * @return void
+     * @author wuxinran@bjjtw.gov.cn
+     * @date 2018/7/17
+     */
     private static void outputTestResult(String testName,ArrayList<Long> timeConsume){
         System.out.println("=========="+testName+"==========");
         System.out.println("0ms - 100ms:"+timeConsume.stream().filter(x -> x <= 100).count());
@@ -18,34 +25,7 @@ public class testMain {
         System.out.println("351ms - :"+timeConsume.stream().filter(x-> x>350).count());
         System.out.println("avg:"+ timeConsume.stream().collect(Collectors.averagingInt(x -> x.intValue() ))  );
     }
-
-    private static int [] repeatTimes(LinkedList<String> path, Map<String,String> map, String act_ed){
-        HashSet<String> repeat = new HashSet<String>();
-        int count = 0;
-        repeat.clear();
-        String [] act = act_ed.split(":");
-        String [] st = path.getFirst().split(",")[1].split(":");
-        String [] ed = path.getLast().split(",")[1].split(":");
-        Integer stInt = Integer.parseInt(st[0])*3600 + Integer.parseInt(st[1])* 60 + Integer.parseInt(st[2]);
-        Integer edInt = Integer.parseInt(ed[0])*3600 + Integer.parseInt(ed[1])* 60 + Integer.parseInt(ed[2]);
-        Integer actInt = Integer.parseInt(act[0])*3600 + Integer.parseInt(act[1])* 60 + Integer.parseInt(act[2]);
-
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            if (repeat.contains(name) && repeat.size() > 1) {
-                count += 1;
-            } else {
-                repeat.add(name);
-            }
-        }
-        int [] result = new int[3];
-        result[0] = count;
-        result[1] = edInt-stInt;
-        result[2] = actInt - edInt;
-        return result;
-    }
-
+    /* 测试用例入口 */
     public static void main(String[] args) throws IOException {
 
         String dateString = "2018-04-25";
@@ -56,72 +36,12 @@ public class testMain {
         LinkedList<String> path;
         String temp,str [];
 
-        /*BufferedReader br=new BufferedReader(new FileReader(new File("d:\\717_16.csv")));
-        BufferedWriter bw=new BufferedWriter(new FileWriter(new File("d:\\717_16.txt")));
-
-        int cnt = 0, row = 0;
-        HashMap<String,Integer> stat = new HashMap<String, Integer>();
-        while((temp=br.readLine())!=null) {
-            row += 1;
-            str=temp.split(",");
-            if (temp.startsWith("TRIP")) {continue;}
-            String hour = str[1].split(" ")[1].split(":")[0];
-            if ("16".equals(hour) == false) {
-                continue;
-            }
-            if ("151018053".equals(str[0]) || "151018053".equals(str[2]) || str[0].equals(str[2])) {continue;}
-            path = mainClass.getReachablePath("2018-06-13",str[1].split(" ")[1],str[0],str[2],false);
-            int [] vals = repeatTimes(path,map,str[3].split(" ")[1]);
-
-            String idx = String.valueOf(vals[0]);
-            if (stat.containsKey(idx) == false){
-                stat.put(idx,1);
-            } else {
-                Integer tmp_val = stat.get(idx);
-                stat.put(idx,tmp_val+1);
-            }*/
-            /*if (Integer.parseInt(idx)>4) {
-                for(String string : path) {
-                    String [] line = string.split(",");
-                    String name = map.get(line[0]);
-                    System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-                }
-            }
-            String result = path.getLast().split(",")[1];*/
-            /*if (cnt > 2600) {
-                for(String string : path) {
-                    String [] line = string.split(",");
-                    String name = map.get(line[0]);
-                    System.out.println(row+","+line[0]+","+line[1]+","+line[2]+","+name);
-                }
-            }*/
-            //System.out.print(temp+","+String.valueOf(vals[0])+","+String.valueOf(vals[1])+"\n");
-            /*bw.write(temp+","+String.valueOf(vals[0])+","+String.valueOf(vals[1])+","+String.valueOf(vals[2])+"\n");
-            cnt += 1;
-            if (cnt % 100 == 0) {
-                System.out.println(cnt);
-                for (String it:stat.keySet() ) {
-                    System.out.println(it+"\t"+String.valueOf(stat.get(it)));
-                }
-                System.out.println("");
-            }
-        }
-        br.close();
-        bw.close();
-        System.out.println("finished");
-        for (String it:stat.keySet() ) {
-            System.out.println(it+"\t"+String.valueOf(stat.get(it)));
-        }
-        System.out.println("");
-        */
-
         path = mainClass.getReachablePath("2018-06-13","23:36:00","150996525","150997535",false);
         for(String string : path) {
             String [] line = string.split(",");
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        //System.out.println(""+String.valueOf(repeatTimes(path,map)));
 
         path = mainClass.getReachablePath("2018-06-13","22:48:00","150998817","150996009",false);
         for(String string : path) {
@@ -129,7 +49,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        //System.out.println(""+String.valueOf(repeatTimes(path,map)));
 
         path = mainClass.getReachablePath("2018-06-13","22:20:00","150998817","150997277",false);
         for(String string : path) {
@@ -137,7 +56,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        //System.out.println(""+String.valueOf(repeatTimes(path,map)));
 
         path = mainClass.getReachablePath("2018-06-13","23:05:00","150998817","150995989",false);
         for(String string : path) {
@@ -145,7 +63,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        //System.out.println(""+String.valueOf(repeatTimes(path,map)));
 
         //东直门 -> 三元桥
         path = mainClass.getReachablePath("2018-06-13","20:58:00","150995470","150997531",false);
