@@ -106,6 +106,7 @@ public class mainClass {
         postponeOpeningStations.add("151019567");
         postponeOpeningStations.add("150996779");
         postponeOpeningStations.add("150997051");
+        postponeOpeningStations.add("150996491");
 
         /** 增加S1线标记 */
         S1Line.add("150999061");
@@ -729,7 +730,12 @@ public class mainClass {
      * @date 2018/7/17
      */
     public static LinkedList<String> getReachableStation(String dateStr, String startTimeStr, String startVertex){
-        return getReachable(dateStr,startTimeStr,startVertex,"",Cate.REACHABLE_STATION);
+        LinkedList<String> result = getReachable(dateStr,startTimeStr,startVertex,"",Cate.REACHABLE_STATION);
+        for (Iterator<String> dd = postponeOpeningStations.iterator(); dd.hasNext();) {
+            String str = dd.next();
+            result.remove(str);
+        }
+        return result;
     }
 
     /**
