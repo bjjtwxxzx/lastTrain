@@ -27,6 +27,7 @@ public class testMain {
     }
     /* 测试用例入口 */
     public static void main(String[] args) throws IOException {
+
         String dateString = "2018-04-25";
         String startTime = "20:10:00";
 
@@ -113,53 +114,21 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
 
-        //天桥 -> 角门东
-        path = mainClass.getReachablePath("2018-06-13","10:00:00","150997043","151018021",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
-
-        //珠市口 -> 景泰
-        path = mainClass.getReachablePath("2018-06-13","10:00:00","150996769","150998579",false);
+        // 平西府 -> 望和桥东
+        path = mainClass.getReachablePath("2018-06-13","20:00:00","150997001","B00101975",false);
         for(String string : path) {
             String [] line = string.split(",");
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
 
-        System.out.println("");
-
-        // 四道桥 -> 古城
-        path = mainClass.getReachablePath("2018-06-13","10:00:00","151018271","150995204",false);
+        path = mainClass.getReachablePath("2018-06-13","10:50:00","B00001988","B00002068",false);
         for(String string : path) {
             String [] line = string.split(",");
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
-
-        // 四道桥 -> 杨庄
-        path = mainClass.getReachablePath("2018-06-13","10:00:00","151018271","150996493",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
-
-        // 五福堂 -> 湾子
-        path = mainClass.getReachablePath("2018-06-13","12:45:00","150997061","150996759",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
 
         System.out.println("==========Output Demo==========");
         System.out.println("23:10:00 XiZhiMen-LiuLiQiao Path");
@@ -194,9 +163,7 @@ public class testMain {
         }
         outputTestResult("ReachableStationTest",testing);
         testing.clear();
-
         //本循环为测试车站代码
-        testing = new ArrayList<Long>();
         for(String ac: mainClass.getAccCodeSet()){
             long time=System.currentTimeMillis();
             LinkedList<String> reachableStations=mainClass.getReachablePath(dateString,startTime,ac,"151018037",true);
