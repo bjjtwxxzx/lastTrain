@@ -105,6 +105,9 @@ public class mainClass {
         postponeOpeningStations.add("150996793");
         postponeOpeningStations.add("151019567");
         postponeOpeningStations.add("150996779");
+        postponeOpeningStations.add("150997051");
+        postponeOpeningStations.add("150996491");
+
         /** 增加S1线标记 */
         S1Line.add("150999061");
         S1Line.add("150999063");
@@ -498,8 +501,6 @@ public class mainClass {
                 str = temp.split(",");
                 //按终点站或起始站有无机场线，间数据加载入两个map中
                 String acccode1 = str[0] + str[1];
-                boolean judge1 =  "151020057".equals(str[0]) || "151020059".equals(str[0]);
-                boolean judge2 =  "151020055".equals(str[1]) || "151020057".equals(str[1]) || "151020059".equals(str[1]);
                 //每次加载列车运行时刻表时，只加载计算时间之后的数据
                 if (startTimeToSec <= CommonTools.transferTime(str[2])) {
                     g.addWeekdayTimetable(acccode1, str[2], str[3], str[5]);
@@ -519,8 +520,6 @@ public class mainClass {
             while ((temp = brWeekend.readLine()) != null) {
                 str = temp.split(",");
                 String acccode1 = str[0] + str[1];
-                boolean judge1 =  "151020057".equals(str[0]) || "151020059".equals(str[0]);
-                boolean judge2 =  "151020057".equals(str[1]) || "151020059".equals(str[1]);
                 //每次加载列车运行时刻表时，只加载计算时间之后的数据
                 if (startTimeToSec <= CommonTools.transferTime(str[2])) {
                     g.addWeekendTimetable(acccode1, str[2], str[3], str[5]);
@@ -731,7 +730,12 @@ public class mainClass {
      * @date 2018/7/17
      */
     public static LinkedList<String> getReachableStation(String dateStr, String startTimeStr, String startVertex){
-        return getReachable(dateStr,startTimeStr,startVertex,"",Cate.REACHABLE_STATION);
+        LinkedList<String> result = getReachable(dateStr,startTimeStr,startVertex,"",Cate.REACHABLE_STATION);
+        for (Iterator<String> dd = postponeOpeningStations.iterator(); dd.hasNext();) {
+            String str = dd.next();
+            result.remove(str);
+        }
+        return result;
     }
 
     /**
@@ -765,8 +769,12 @@ public class mainClass {
     private static double getGeoDistanceBetweenStations(String stationACC1, String stationACC2){
         Float [] lastStationPosition = graph.getGeoPosition(stationACC1);
         Float [] destStationPosition = graph.getGeoPosition(stationACC2);
-        if (lastStationPosition[0] - 0.0 > EPSILON && lastStationPosition[1] - 0.0 > EPSILON && destStationPosition[0] - 0.0 > EPSILON && destStationPosition[1] - 0.0 > EPSILON){
-            return CommonTools.simpleDist(lastStationPosition[1],lastStationPosition[0],destStationPosition[1],destStationPosition[0]);
+        try {
+            if (lastStationPosition[0] - 0.0 > EPSILON && lastStationPosition[1] - 0.0 > EPSILON && destStationPosition[0] - 0.0 > EPSILON && destStationPosition[1] - 0.0 > EPSILON) {
+                return CommonTools.simpleDist(lastStationPosition[1], lastStationPosition[0], destStationPosition[1], destStationPosition[0]);
+            }
+        } catch (NullPointerException e){
+            System.out.println(stationACC1+"_"+stationACC2);
         }
         return -1.0;
     }
@@ -820,6 +828,10 @@ public class mainClass {
     private static LinkedList<String> getReachable(String dateStr, String startTimeStr, String startVertex, String endVertex, Cate type) {
         resetGraph();
         graph.setIsWeekend(CommonTools.isWeekend(dateStr));
+        if (!startVertex.equals("151020057") && !endVertex.equals("151020057") && !startVertex.equals("151020059") && !endVertex.equals("151020059")){
+            graph.removeEdge("151020053","151020055");
+            graph.removeEdge("151020055","151020053");
+        }
         //0是00:00:00的秒数，18000是05:00:00的秒数
         LinkedList<String> reachableStation = new LinkedList<>();
         switch (type) {

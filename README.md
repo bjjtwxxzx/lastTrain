@@ -9,8 +9,9 @@
 
 文档
 -------
-- [地铁公司合作任务：接口使用说明20180424_V0.2](https://github.com/bjjtwxxzx/lastTrain/wiki/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E20180424_V0.2)
-- [地铁公司合作任务：接口使用说明20180424_V0.3](https://github.com/bjjtwxxzx/lastTrain/wiki/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E20180522_V0.3)
+- [地铁公司合作任务：接口使用说明V0.2](https://github.com/bjjtwxxzx/lastTrain/wiki/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E20180424_V0.2)
+- [地铁公司合作任务：接口使用说明V0.3](https://github.com/bjjtwxxzx/lastTrain/wiki/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E20180522_V0.3)
+- [地铁公司合作任务：接口使用说明V0.4](https://github.com/bjjtwxxzx/lastTrain/wiki/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E20180723_V0.4)
 
 文献
 -------
@@ -24,3 +25,10 @@
   OpenSourceCode. [akiba pll](https://github.com/iwiwi/pruned-landmark-labeling)
 
 - Ref3. [Efficient Index Structures for Reachability and Shortest Path](https://repository.ntu.edu.sg/bitstream/10356/68898/1/Sibo_WANG_thesis_final.pdf)
+
+- Ref4. [Efficient Top-k Shortest-Path Distance Queries on Large Networks by Pruned Landmark Labeling](https://pdfs.semanticscholar.org/efe1/937ea1716eae9eb3500c51a9354980234839.pdf)
+
+Resource
+-------
+
+[download latest resource](https://pan.baidu.com/s/1BP-BgMvcrw-X-4GloU5HNQ)

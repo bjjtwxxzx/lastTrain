@@ -371,9 +371,10 @@ public class GraphSearchAlgorithm {
                         deTime = CommonTools.transferTime(verTime) + Integer.parseInt(g.getTransTime().get(ver + verEnd));
                         arrTime = deTime;
                         deTimeStart = CommonTools.transferTime(verTime);
-                        if (airlines.contains(ver) || airlines.contains(verEnd)) {
-                            deTime += TRANSFERWEIGHT * 5;
-                        } else if (isLessTrans == true) {
+                        //if (airlines.contains(ver) || airlines.contains(verEnd)) {
+                        //    deTime += TRANSFERWEIGHT * 5;
+                        //} else
+                        if (isLessTrans == true) {
                             deTime += TRANSFERWEIGHT;
                         }
                     }
