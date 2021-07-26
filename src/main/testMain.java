@@ -7,7 +7,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class testMain {
-
+    /**
+     * outputTestResult 输出测试用时汇总结果
+     * @param testName 测试名称
+     * @param timeConsume 不同耗时用例数量
+     * @return void
+     * @author wuxinran@bjjtw.gov.cn
+     * @date 2018/7/17
+     */
     private static void outputTestResult(String testName,ArrayList<Long> timeConsume){
         System.out.println("=========="+testName+"==========");
         System.out.println("0ms - 100ms:"+timeConsume.stream().filter(x -> x <= 100).count());
@@ -18,34 +25,7 @@ public class testMain {
         System.out.println("351ms - :"+timeConsume.stream().filter(x-> x>350).count());
         System.out.println("avg:"+ timeConsume.stream().collect(Collectors.averagingInt(x -> x.intValue() ))  );
     }
-
-    private static int [] repeatTimes(LinkedList<String> path, Map<String,String> map, String act_ed){
-        HashSet<String> repeat = new HashSet<String>();
-        int count = 0;
-        repeat.clear();
-        String [] act = act_ed.split(":");
-        String [] st = path.getFirst().split(",")[1].split(":");
-        String [] ed = path.getLast().split(",")[1].split(":");
-        Integer stInt = Integer.parseInt(st[0])*3600 + Integer.parseInt(st[1])* 60 + Integer.parseInt(st[2]);
-        Integer edInt = Integer.parseInt(ed[0])*3600 + Integer.parseInt(ed[1])* 60 + Integer.parseInt(ed[2]);
-        Integer actInt = Integer.parseInt(act[0])*3600 + Integer.parseInt(act[1])* 60 + Integer.parseInt(act[2]);
-
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            if (repeat.contains(name) && repeat.size() > 1) {
-                count += 1;
-            } else {
-                repeat.add(name);
-            }
-        }
-        int [] result = new int[3];
-        result[0] = count;
-        result[1] = edInt-stInt;
-        result[2] = actInt - edInt;
-        return result;
-    }
-
+    /* 测试用例入口 */
     public static void main(String[] args) throws IOException {
         String dateString = "2018-04-25";
         String startTime = "20:10:00";
@@ -53,41 +33,14 @@ public class testMain {
         mainClass.fit();
         Map<String,String> map = mainClass.getAccCodeMap();
         LinkedList<String> path;
+        String temp,str [];
 
-        // T2航站楼 -> 芍药居
-        path = mainClass.getReachablePath("2019-03-17","12:45:00","151020057","150998317",false);
+        path = mainClass.getReachablePath("2018-06-13","23:36:00","150996525","150997535",false);
         for(String string : path) {
             String [] line = string.split(",");
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
-
-        // 东直门 -> 三元桥
-        path = mainClass.getReachablePath("2019-03-17","12:45:00","150998323","150997531",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
-
-        // 中国美术馆 -> 昌平
-        path = mainClass.getReachablePath("2019-03-17","08:45:00","150997033","151019031",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
-
-        path = mainClass.getReachablePath("2018-06-13","22:45:00","150995218","151018775",false);
-        for(String string : path) {
-            String [] line = string.split(",");
-            String name = map.get(line[0]);
-            System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
-        }
-        System.out.println("");
 
         path = mainClass.getReachablePath("2018-06-13","22:48:00","150998817","150996009",false);
         for(String string : path) {
@@ -95,7 +48,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
 
         path = mainClass.getReachablePath("2018-06-13","22:20:00","150998817","150997277",false);
         for(String string : path) {
@@ -103,7 +55,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
 
         path = mainClass.getReachablePath("2018-06-13","23:05:00","150998817","150995989",false);
         for(String string : path) {
@@ -111,7 +62,6 @@ public class testMain {
             String name = map.get(line[0]);
             System.out.println(line[0]+","+line[1]+","+line[2]+","+name);
         }
-        System.out.println("");
 
         //东直门 -> 三元桥
         path = mainClass.getReachablePath("2018-06-13","20:58:00","150995470","150997531",false);
